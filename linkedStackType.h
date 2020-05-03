@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cassert>
+#include "stackADT.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ template <class Type>
 class linkedStackType: public stackADT<Type>
 {
 public:
-    class linkedStackType<Type>& operator= (const linkedStackType>Type>&);
+    const linkedStackType<Type>& operator= (const linkedStackType<Type>&);
     // Overload the assignment operator.
 
     void initializeStack();
@@ -131,7 +132,7 @@ void linkedStackType<Type>::pop()
     nodeType<Type> *temp;           // pointer to deallocate memory
     if (stackTop != nullptr)
     {
-        tenp = stackTop;            // set temp to point to the top node
+        temp = stackTop;            // set temp to point to the top node
         stackTop = stackTop->link;  // advance stackTop to the next node
         delete temp;                // delete the top node
     }
@@ -188,6 +189,22 @@ template <class Type>
 linkedStackType<Type>::linkedStackType(const linkedStackType<Type>& otherStack)
 {
     stackTop = nullptr;
-}
+}   // end constructor
+
+// destructor
+template <class Type>
+linkedStackType<Type>::~linkedStackType()
+{
+    initializeStack();
+}   // end destructor
+
+template <class Type>
+const linkedStackType<Type>& linkedStackType<Type>::operator= (const linkedStackType<Type>& otherStack)
+{
+    if (this != &otherStack)    // avoid self-copy
+        copyStack(otherStack);
+
+    return *this;
+}   // end operator=
 
 #endif
