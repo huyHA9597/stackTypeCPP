@@ -97,7 +97,7 @@ void linkedStackType<Type>::initializeStack()
 {
     nodeType<Type> *temp;       // pointer to delete the node
 
-    while (stackTop == nullptr)     // while there are elements in the stack
+    while (stackTop != nullptr)     // while there are elements in the stack
     {
         temp = stackTop;            // set temp to point to the current node
         stackTop = stackTop->link;  // advanced stackTop to the next node
